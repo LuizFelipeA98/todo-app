@@ -6,6 +6,8 @@ const app = express()
 app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
 
+app.unsubscribe(express.static('public'))
+
 app.get('/', (requisicao, resposta) => {
     resposta.render('home')
 })
