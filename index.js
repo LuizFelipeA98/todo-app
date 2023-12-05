@@ -35,8 +35,23 @@ app.post('/criar', (requisicao, resposta) => {
     })
 })
 
-
 app.get('/', (requisicao, resposta) => {
+    const sql = 'SELECT * FROM tarefas'
+
+    conexao.query(sql, (erro, dados) => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        const tarefas = dados.map((dado) => {
+            return {
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: dado.completa === 0 ? false : true
+            }
+        })
+    })
+    
     resposta.render('home')
 })
 
@@ -48,7 +63,7 @@ const conexao = mysql.createConnection({
     port: 3306
 })
 
-conexao.connect((erro)) => {
+conexao.connect((erro) => {
     if (erro) {
         return console.log(erro)
     }
@@ -58,4 +73,4 @@ conexao.connect((erro)) => {
     app.listen(3000, () => {
         console.log("Servidor rodando na porta 3000")
     })
-}
+})
