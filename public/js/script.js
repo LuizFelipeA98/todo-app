@@ -1,3 +1,15 @@
+function completarTarefa(id) {
+    fetch("http://localhost:3000/completar", {
+    method: "POST",
+    header: {
+        'Content-Type': 'aplication/jason'
+    },
+    body: JSON.stringify({ id })
+})
+
+    window.location.reload()
+}
+
 function alterarTema() {
     const tema = localStorage.getItem("tema")
     const body = document.querySelector("body")
